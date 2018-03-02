@@ -6,11 +6,9 @@
 #define JIMP_EXERCISES_REVERSESTRING_H
 
 
-
 class ReverseString {
 
 };
-
 
 
 #endif //JIMP_EXERCISES_REVERSESTRING_H

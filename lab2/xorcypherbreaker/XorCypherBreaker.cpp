@@ -9,9 +9,9 @@ std::string XorCypherBreaker(const std::vector<char> &cryptogram, int key_length
     string key = "";
     vector<string> possible_message;
 
-    for (int i=33; i<=128; ++i){ // assuming that key_length is 3
-        for (int j=33; j<=128; ++j){
-            for (int k=33; k<=128; ++k){
+    for (int i=0; i<128; ++i){ // assuming that key_length is 3     0-127 range as ASCII range
+        for (int j=0; j<128; ++j){
+            for (int k=0; k<128; ++k){
                 int key_place = 0;
                 key = CreateKey(key, i, j, k);
 

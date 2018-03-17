@@ -75,11 +75,9 @@ namespace datastructures{
         else return;
     }
 
-    void
-ConvertMapToArray(const std::vector<std::pair<int, int>> &values, std::vector<int> &array_of_values, int max_depth);
+    void ConvertMapToArray(const std::vector<std::pair<int, int>> &values, std::vector<int> &array_of_values, int max_depth);
 
-    void ConvertStringToMap(const std::string &tree, std::vector<std::pair<int, int>> &values, int depth, int current_value,
-                        int current_position, int current_depth, std::string &number);
+    void ConvertStringToMap(const std::string &tree, std::vector<std::pair<int, int>> &values, int depth, int current_value, int current_position, int current_depth, std::string &number);
 
     std::unique_ptr <SmartTree> RestoreTree(const std::string &tree){
 
@@ -107,34 +105,32 @@ ConvertMapToArray(const std::vector<std::pair<int, int>> &values, std::vector<in
 
     }
 
-    void ConvertStringToMap(const std::string &tree, std::vector<std::pair<int, int>> &values, int depth, int current_value,
-        int current_position, int current_depth, std::string &number) {
+    void ConvertStringToMap(const std::string &tree, std::vector<std::pair<int, int>> &values, int depth, int current_value, int current_position, int current_depth, std::string &number) {
         while (tree[current_position] != '\0'){
-if (tree[current_position]=='['){
-++current_position;
-++current_depth;
-number = "";
-while (tree[current_position]!=' ' && tree[current_position]!=']'){
-number+=tree[current_position];
-++current_position;
-}
+            if (tree[current_position]=='['){
+                ++current_position;
+                ++current_depth;
+                number = "";
+                while (tree[current_position]!=' ' && tree[current_position]!=']'){
+                    number+=tree[current_position];
+                    ++current_position;
+                }
 
-if (number!="none") {
-current_value = stoi(number);
-values.emplace_back(std::make_pair(current_depth, current_value));
-++depth;
-}
-else{
-values.emplace_back(std::make_pair(current_depth, INT32_MAX));
-}
-}
-if (tree[current_position]==']') --current_depth;
-++current_position;
-}
+                if (number!="none") {
+                    current_value = stoi(number);
+                    values.emplace_back(std::make_pair(current_depth, current_value));
+                    ++depth;
+                }
+                else{
+                    values.emplace_back(std::make_pair(current_depth, INT32_MAX));
+                }
+            }
+            if (tree[current_position]==']') --current_depth;
+            ++current_position;
+        }
     }
 
-    void
-    ConvertMapToArray(const std::vector<std::pair<int, int>> &values, std::vector<int> &array_of_values, int max_depth) {
+    void ConvertMapToArray(const std::vector<std::pair<int, int>> &values, std::vector<int> &array_of_values, int max_depth) {
         for (int i=1; i <= max_depth; ++i){
                 for (auto value : values){
                     if (value.first == i && value.second!=INT32_MAX){

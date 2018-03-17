@@ -10,13 +10,15 @@
 #include <memory>
 
 namespace datastructures{
+
     struct SmartTree{
         int value;
-        //std::unique_ptr<SmartTree> parent = nullptr;
         std::unique_ptr<SmartTree> left = nullptr;
         std::unique_ptr<SmartTree> right = nullptr;
     };
+
     using SmartTree = struct SmartTree;
+
     std::unique_ptr <SmartTree> CreateLeaf(int value);
     std::unique_ptr <SmartTree> InsertLeftChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> left_subtree);
     std::unique_ptr <SmartTree> InsertRightChild(std::unique_ptr<SmartTree> tree, std::unique_ptr<SmartTree> right_subtree);

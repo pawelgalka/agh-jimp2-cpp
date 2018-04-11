@@ -70,8 +70,10 @@ namespace academia{
 
         int StudentCount() const ;
         Student &operator[](const string &id);
-    private:
+        bool operator==(StudentRepository s) const ;
         std::vector<Student> students_;
+    private:
+
     };
 
     bool operator>(const StudyYear, const StudyYear);

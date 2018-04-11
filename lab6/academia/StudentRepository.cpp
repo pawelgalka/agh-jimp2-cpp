@@ -41,9 +41,9 @@ namespace academia{
     }
 
     istream &operator>>(istream &is, StudyYear &year) {
-        std::string str;
-        is >> str;
-        year.SetYear(atoi(str.c_str()));
+        int liczba;
+        is >> liczba;
+        year.SetYear(liczba);
     }
 
     ostream &operator<<(ostream &os, StudyYear &year) {
@@ -97,14 +97,15 @@ namespace academia{
 
     bool Student::operator==(Student s1) const
     {
-        if (this->Id()==s1.Id() && this->FirstName()==s1.FirstName() && this->LastName()==s1.LastName() && this->Program()==s1.Program() && this->Year()==s1.Year()){
-            return true;
-        }
-        else return false;
+        return (this->Id()==s1.Id() && this->FirstName()==s1.FirstName() && this->LastName()==s1.LastName() &&
+                this->Program()==s1.Program() && this->Year()==s1.Year());
+    }
+
+    void Student::ChangeFirstName(string new_name) {
+        this->firstName_=new_name;
     }
 
     istream &operator>>(istream &is, Student &year) {
-
 
     }
 
@@ -139,6 +140,14 @@ namespace academia{
         return result;
     }
 
+    bool StudentRepository::operator==(StudentRepository s) const {
+        for (int i=0; i<10; ++i){
+            if (!(this->students_[i]==s.students_[i])){
+                return false;
+            }
+        }
+        return true;
+    }
 
     bool operator>(const StudyYear a, const StudyYear b){
         return (a.GetYear()>b.GetYear());

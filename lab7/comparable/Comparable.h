@@ -16,6 +16,7 @@ namespace academia{
 
     class ByFirstNameAscending : public StudentComparator{
     public:
+        ByFirstNameAscending();
         virtual bool IsLess(const Student &left, const Student &right)const override ;
     };
 

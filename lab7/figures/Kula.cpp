@@ -9,5 +9,5 @@ double Kula::GetZ() {
 }
 
 double Kula::Pole() const {
-    return M_PI*4*GetR()*GetR();
+    return 4*Kolo::Pole();
 }

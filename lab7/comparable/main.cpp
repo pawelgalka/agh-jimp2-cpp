@@ -3,15 +3,19 @@
 //
 
 #include <algorithm>
+#include <memory>
 #include "Comparable.h"
 using namespace academia;
 int main(){
-    StudentRepository repository      {{"2030", "Michał", "Karak", "architektura", 5}, {"2031", "Katarzyna", "Bach", "informatyka", 3},
+    StudentException repository      {{"2030", "Michał", "Karak", "architektura", 5}, {"2031", "Katarzyna", "Bach", "informatyka", 3},
                                         {"2035", "Orson", "Sabach", "górnictwo", 2}};
-    ByFirstNameDescending *wsk;
-    ByFirstNameDescending obj;
-    wsk = &obj;
+    std::unique_ptr<ByFirstNameDescending> wsk = std::make_unique<ByFirstNameDescending>();
 
-    std::sort(repository.students_.begin(), repository.students_.end(), static_cast<bool>(wsk->IsLess));
+    std::sort(repository.students_.begin(), repository.students_.end(), *wsk);
+    for (auto v:repository.students_){
+        std::cout << v ;
+        std::cout << std::endl;
+    }
+
     return 0;
 }

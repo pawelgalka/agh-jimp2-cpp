@@ -7,7 +7,7 @@
 #include <MemLeakTest.h>
 #include <StudentRepository.h>
 
-using ::academia::StudentRepository;
+using ::academia::StudentException;
 using ::academia::StudyYear;
 using ::academia::Student;
 using ::std::make_unique;
@@ -22,7 +22,7 @@ class StudentRepositoryTests : public ::testing::Test, MemLeakTest {
 
 TEST_F(StudentRepositoryTests, IsAbleToCreateEmptyRepository) {
 
-  StudentRepository repository{};
+  StudentException repository{};
 
   EXPECT_EQ(0, repository.StudentCount());
 
@@ -30,7 +30,7 @@ TEST_F(StudentRepositoryTests, IsAbleToCreateEmptyRepository) {
 
 TEST_F(StudentRepositoryTests, IsAbleToInitlizeRepositoryByInilizerList) {
 
-  StudentRepository repository
+  StudentException repository
       {{"2030", "Michał", "Karak", "architektura", 5}, {"2031", "Katarzyna", "Bach", "informatyka", 3},
        {"2035", "Orson", "Sabach", "górnictwo", 2}};
 
@@ -40,7 +40,7 @@ TEST_F(StudentRepositoryTests, IsAbleToInitlizeRepositoryByInilizerList) {
 
 TEST_F(StudentRepositoryTests, IsAbleToRetriveStudentById) {
 
-  StudentRepository repository
+  StudentException repository
       {{"2030", "Michał", "Karak", "architektura", 5}, {"2031", "Katarzyna", "Bach", "informatyka", 3},
        {"2035", "Orson", "Sabach", "górnictwo", 2}};
 
@@ -55,7 +55,7 @@ TEST_F(StudentRepositoryTests, IsAbleToRetriveStudentById) {
 
 TEST_F(StudentRepositoryTests, IsAbleToRetriveStudentByIdAndModifyItsStateInRepository) {
 
-  StudentRepository repository
+  StudentException repository
       {{"2030", "Michał", "Karak", "architektura", 5}, {"2031", "Katarzyna", "Bach", "informatyka", 3},
        {"2035", "Orson", "Sabach", "górnictwo", 2}};
 
@@ -80,11 +80,11 @@ TEST_F(StudentRepositoryTests, IsAbleToRetriveStudentByIdAndModifyItsStateInRepo
 
 TEST_F(StudentRepositoryTests, IsAbleToCompateTwoRepositories) {
 
-  StudentRepository repository
+  StudentException repository
       {{"2030", "Michał", "Karak", "architektura", 5}, {"2031", "Katarzyna", "Bach", "informatyka", 3},
        {"2035", "Orson", "Sabach", "górnictwo", 2}};
 
-  StudentRepository copy
+  StudentException copy
       {{"2035", "Orson", "Sabach", "górnictwo", 2}, {"2031", "Katarzyna", "Bach", "informatyka", 3},
        {"2030", "Michał", "Karak", "architektura", 5}};
 

@@ -46,6 +46,7 @@ namespace academia{
         string LastName() const ;
         string Program() const ;
         StudyYear Year() const ;
+        friend ostream &operator<<(ostream &os, Student &year);
         void ChangeLastName(const string &newLastName);
         bool operator==(Student s1) const ;
         void ChangeFirstName(string new_name);
@@ -62,15 +63,15 @@ namespace academia{
 
     ostream &operator<<(ostream &os, Student &year);
 
-    class StudentRepository{
+    class StudentException{
     public:
-        StudentRepository();
-        StudentRepository(std::initializer_list<Student> arg);
-        ~StudentRepository();
+        StudentException();
+        StudentException(std::initializer_list<Student> arg);
+        ~StudentException();
 
         int StudentCount() const ;
         Student &operator[](const string &id);
-        bool operator==(StudentRepository s) const ;
+        bool operator==(StudentException s) const ;
         std::vector<Student> students_;
     private:
 

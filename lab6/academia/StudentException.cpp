@@ -114,25 +114,25 @@ namespace academia{
  << year.Program() << "\", year: " << (int)year.Year()  ;  }
 
 
-    StudentRepository::StudentRepository() {
+    StudentException::StudentException() {
 
     }
 
-    StudentRepository::StudentRepository(std::initializer_list<Student> arg) {
+    StudentException::StudentException(std::initializer_list<Student> arg) {
         for (auto const & value: arg){
             students_.push_back(value);
         }
     }
 
-    StudentRepository::~StudentRepository() {
+    StudentException::~StudentException() {
 
     }
 
-    int StudentRepository::StudentCount() const {
+    int StudentException::StudentCount() const {
         return students_.size();
     }
 
-    Student &StudentRepository::operator[](const string &id) {
+    Student &StudentException::operator[](const string &id) {
         for (int i=0; i<students_.size(); ++i){
             if (students_[i].Id()==id) return students_[i];
         }
@@ -140,7 +140,7 @@ namespace academia{
         return result;
     }
 
-    bool StudentRepository::operator==(StudentRepository s) const {
+    bool StudentException::operator==(StudentException s) const {
         for (int i=0; i<10; ++i){
             if (!(this->students_[i]==s.students_[i])){
                 return false;

@@ -69,6 +69,8 @@ script:
   - tests/lab5test/lab5_text_pool_tests
   - make lab6_word_counter_tests
   - tests/lab6test/lab6_word_counter_tests
+  - make lab7_iterable_tests
+  - tests/lab7test/lab7_iterable_tests
   - cd .. && echo 'RUNNING ALL COMPILED TESTS'
   - find build/tests/ -type f -name '*tests' -exec {} \;
   - echo 'RUNNING CPPCHECK STATIC ANALYSIS'

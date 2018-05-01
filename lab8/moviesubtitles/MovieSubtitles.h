@@ -33,42 +33,42 @@ namespace moviesubs{
         virtual void ShiftAllSubtitlesBy(int delay, int fps, std::stringstream *instream, std::stringstream *outstream) override ;
     };
 
-    class MovieSubtitlesError : public std::invalid_argument{
+    class SubtitlesException : public std::invalid_argument{
     public:
-        MovieSubtitlesError(const std::string &message) : invalid_argument(message) {};
+        SubtitlesException(int line, const std::string &message) : invalid_argument(message) {};
     };
 
-    class NegativeFrameAfterShift : public MovieSubtitlesError{
+    class NegativeFrameAfterShift : public SubtitlesException{
     public:
-        NegativeFrameAfterShift() : MovieSubtitlesError("Invalid framerate"){};
+        NegativeFrameAfterShift(int line, const std::string &message) : SubtitlesException(line,"Invalid framerate"){};
     };
 
-    class SubtitleEndBeforeStart : public MovieSubtitlesError{
+    class SubtitleEndBeforeStart : public SubtitlesException{
     public:
-        SubtitleEndBeforeStart(int line_num, std::string line) : MovieSubtitlesError("At line "+std::to_string(line_num)+": "+line), line_{line_num} {};
+        SubtitleEndBeforeStart(int line_num, std::string line) : SubtitlesException(line_num,"At line "+std::to_string(line_num)+": "+line), line_{line_num} {};
         int LineAt() const ;
 
     private:
         int line_;
     };
 
-    class InvalidSubtitleLineFormat : public MovieSubtitlesError{
+    class InvalidSubtitleLineFormat : public SubtitlesException{
     public:
-        InvalidSubtitleLineFormat(int line_num) : MovieSubtitlesError(std::to_string(line_num)), line_{line_num} {};
+        InvalidSubtitleLineFormat(int line_num, const std::string &message) : SubtitlesException(line_num,message), line_{line_num} {};
         int LineAt() const ;
 
     private:
         int line_;
     };
 
-    class MissingTimeSpecification : public MovieSubtitlesError{
+    class MissingTimeSpecification : public SubtitlesException{
     public:
-        MissingTimeSpecification() : MovieSubtitlesError("Missing Time Specification") {};
+        MissingTimeSpecification(int line, const std::string &message) : SubtitlesException(line, "Missing Time Specification") {};
     };
 
-    class OutOfOrderFrames : public MovieSubtitlesError{
+    class OutOfOrderFrames : public SubtitlesException{
     public:
-        OutOfOrderFrames() : MovieSubtitlesError("Out Of Order Frames") {};
+        OutOfOrderFrames(int line, const std::string &message) : SubtitlesException(line, "Out Of Order Frames") {};
     };
 }
 

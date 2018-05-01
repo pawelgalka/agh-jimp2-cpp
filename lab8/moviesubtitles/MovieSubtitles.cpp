@@ -34,7 +34,7 @@ namespace moviesubs{
     void SubRipSubtitles::ShiftAllSubtitlesBy(int delay, int fps, std::stringstream *instream,
                                               std::stringstream *outstream) {
         if (fps <= 0){
-            throw NegativeFrameAfterShift();
+            throw SubtitlesException(0,"Invalid argument");
         }
         if (instream->str().empty()) throw std::invalid_argument{"Invalid argument"};
         int shift = delay*fps/1000;
@@ -50,9 +50,9 @@ namespace moviesubs{
             line_num++;
             std::smatch result;
             if(!std::regex_match(line,result,pattern)){
-                throw InvalidSubtitleLineFormat(line_num);
+                throw InvalidSubtitleLineFormat(line_num,line);
             }
-            if (result[2].str()!=std::to_string(line_num)) throw OutOfOrderFrames();
+            if (result[2].str()!=std::to_string(line_num)) throw OutOfOrderFrames(line_num,line);
             int appear_time,disappear_time,appear_delayed,disappear_delayed;
             appear_time = 3600000*std::stoi(result[4].str())+60000*std::stoi(result[5].str())+1000*std::stoi(result[6].str())+std::stoi(result[7].str());
             disappear_time= 3600000*std::stoi(result[8].str())+60000*std::stoi(result[9].str())+1000*std::stoi(result[10].str())+std::stoi(result[11].str());
@@ -60,7 +60,7 @@ namespace moviesubs{
 
             appear_delayed=appear_time+delay;
             disappear_delayed=disappear_time+delay;
-            if (appear_delayed<0) throw  NegativeFrameAfterShift();
+            if (appear_delayed<0) throw  NegativeFrameAfterShift(line_num,line);
             if (std::to_string(appear_delayed/3600000).length()<2){
                 out += result[2].str()+"\n0"+std::to_string(appear_delayed/3600000)+":";
             }
@@ -132,7 +132,7 @@ namespace moviesubs{
     void MicroDvdSubtitles::ShiftAllSubtitlesBy(int delay, int fps, std::stringstream *instream,
                                                 std::stringstream *outstream) {
         if (fps <= 0){
-            throw NegativeFrameAfterShift();
+            throw SubtitlesException(0,"Invalid FPS");
         }
         if (instream->str().empty()) throw std::invalid_argument{"Invalid argument"};
         int shift = delay*fps/1000;
@@ -146,9 +146,9 @@ namespace moviesubs{
             line=result1.str();
             input=result1.suffix();
             if (!std::regex_search(line,result,pattern)){
-                throw InvalidSubtitleLineFormat(line_num);
+                throw InvalidSubtitleLineFormat(line_num,line);
             }
-            if (std::stoi(result[2].str())+shift<0) throw NegativeFrameAfterShift();
+            if (std::stoi(result[2].str())+shift<0) throw NegativeFrameAfterShift(line_num,line);
             if (std::stoi(result[2].str())>std::stoi(result[3].str())) throw SubtitleEndBeforeStart(line_num,line.substr(0,line.length()-1));
             out+= "{"+std::to_string(std::stoi(result[2].str())+shift)+"}"+"{"+std::to_string(std::stoi(result[3].str())+shift)+"}"+result.suffix().str();
         }

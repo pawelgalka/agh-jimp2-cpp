@@ -8,6 +8,7 @@ set(TEST_LAB_NUMBER 13)
 #######################################################################
 add_gtest_with_memleak(arabic_to_roman libarabicroman)
 add_gtest_with_memleak(roman_to_arabic libarabicroman)
+add_gtest_with_memleak(repository libarabicroman)
 
 #######################################################################
 ##  ALL TESTS
